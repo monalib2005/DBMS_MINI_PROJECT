@@ -1,0 +1,149 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Cream background with subtle warmth */
+    --background: 36 40% 97%;
+    --foreground: 240 10% 15%;
+
+    /* Card with slight elevation */
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 15%;
+
+    /* Fresh mint green - energetic and appetizing */
+    --primary: 150 60% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Warm coral orange - accent color */
+    --secondary: 25 90% 60%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Soft muted tones */
+    --muted: 150 20% 95%;
+    --muted-foreground: 240 5% 45%;
+
+    /* Accent with warmth */
+    --accent: 45 95% 88%;
+    --accent-foreground: 240 10% 15%;
+
+    /* Success green for order states */
+    --success: 150 70% 45%;
+    --success-foreground: 0 0% 100%;
+
+    /* Warning orange for pending states */
+    --warning: 35 95% 55%;
+    --warning-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 150 20% 90%;
+    --input: 150 20% 92%;
+    --ring: 150 60% 55%;
+
+    --radius: 1rem;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(150, 60%, 55%), hsl(150, 70%, 45%));
+    --gradient-secondary: linear-gradient(135deg, hsl(25, 90%, 60%), hsl(15, 90%, 55%));
+    --gradient-bg: linear-gradient(180deg, hsl(36, 40%, 97%), hsl(150, 30%, 96%));
+
+    /* Shadows */
+    --shadow-soft: 0 2px 8px hsl(150 60% 55% / 0.08);
+    --shadow-medium: 0 4px 16px hsl(150 60% 55% / 0.12);
+    --shadow-large: 0 8px 32px hsl(150 60% 55% / 0.16);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 150 60% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 150 20% 95%;
+    --sidebar-accent-foreground: 240 10% 15%;
+    --sidebar-border: 150 20% 90%;
+    --sidebar-ring: 150 60% 55%;
+  }
+
+  .dark {
+    --background: 240 10% 8%;
+    --foreground: 0 0% 98%;
+
+    --card: 240 10% 10%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 10% 10%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 150 60% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 25 90% 55%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 240 10% 15%;
+    --muted-foreground: 240 5% 65%;
+
+    --accent: 150 30% 20%;
+    --accent-foreground: 0 0% 98%;
+
+    --success: 150 70% 40%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 35 95% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 10% 20%;
+    --input: 240 10% 20%;
+    --ring: 150 60% 50%;
+
+    --sidebar-background: 240 10% 10%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 150 60% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 10% 15%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 240 10% 20%;
+    --sidebar-ring: 150 60% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+    background: linear-gradient(180deg, hsl(36, 40%, 97%), hsl(150, 30%, 96%));
+    min-height: 100vh;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-sm;
+  }
+  
+  .hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+  }
+
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .gradient-secondary {
+    background: var(--gradient-secondary);
+  }
+}
