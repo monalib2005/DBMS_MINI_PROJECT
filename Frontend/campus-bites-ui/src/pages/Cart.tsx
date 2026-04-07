@@ -9,6 +9,7 @@ const Cart = () => {
   const navigate = useNavigate();
   const API_CART_URL = "http://localhost:5000/api/orders/cart";
   const API_ORDER_URL = "http://localhost:5000/api/orders/order";
+  const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
   const USER_ID = 1; // replace with logged-in user
 
   const [cartItems, setCartItems] = useState<Record<string, any>>({});
@@ -19,7 +20,7 @@ const Cart = () => {
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const res = await axios.get(`${API_CART_URL}/${USER_ID}`);
+        const res = await axios.get(`${API_BASE}/api/orders/cart/${USER_ID}`);
         const data: Record<string, any> = {};
         res.data.forEach((ci: any) => {
           data[ci.item_id] = {
@@ -64,7 +65,7 @@ const Cart = () => {
   // ✅ Remove cart item
   const removeCartItem = async (itemId: string) => {
     try {
-      await axios.delete(`${API_CART_URL}/${USER_ID}/${itemId}`);
+      await axios.delete(`${API_BASE}/api/orders/cart/${USER_ID}/${itemId}`);
       setCartItems((prev) => {
         const newCart = { ...prev };
         delete newCart[itemId];
@@ -96,7 +97,7 @@ const Cart = () => {
 
     try {
       setProcessingOrder(true);
-      const res = await axios.post(API_ORDER_URL, { user_id: USER_ID });
+      const res = await axios.post(`${API_BASE}/api/orders/order`, { user_id: USER_ID });
       // Clear local cart after successful order
       setCartItems({});
       alert(`Order created successfully! Order ID: ${res.data.order.order_uuid}`);

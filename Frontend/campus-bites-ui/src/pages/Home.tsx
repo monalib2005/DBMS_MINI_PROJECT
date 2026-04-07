@@ -11,7 +11,7 @@ const Home = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   const categories = ["All", "Meals", "Snacks", "Drinks"];
-  const API_URL = "http://localhost:5000/api/orders/cart"; // backend cart endpoint
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000"; // backend cart endpoint
 
   const USER_ID = 1; // replace with logged-in user
 
@@ -19,7 +19,7 @@ const Home = () => {
   useEffect(() => {
     const fetchMenuItems = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/menu");
+        const res = await fetch(`${API_BASE}/api/menu`);
         const data = await res.json();
         setMenuItems(data.filter((item: any) => item.availability === true));
       } catch (err) {
@@ -31,7 +31,7 @@ const Home = () => {
 
     const fetchCartItems = async () => {
       try {
-        const res = await axios.get(`${API_URL}?user_id=${USER_ID}`);
+        const res = await axios.get(`${API_BASE}/api/orders/cart?user_id=${USER_ID}`);
         const cartData: Record<string, number> = {};
         res.data.forEach((ci: any) => {
           cartData[ci.item_id] = ci.quantity;
@@ -60,7 +60,7 @@ const Home = () => {
       const currentQty = cart[itemId] || 0;
       const newQty = currentQty + change;
 
-      await axios.post(API_URL, {
+      await axios.post(`${API_BASE}/api/orders/cart`, {
         user_id: USER_ID,
         item_id: Number(itemId),
         quantity: newQty,
@@ -118,9 +118,7 @@ const Home = () => {
                 price={item.price}
                 image={
                   item.image_url
-                    ? `http://localhost:5000${
-                        item.image_url.startsWith("/") ? item.image_url : "/" + item.image_url
-                      }`
+                    ? `${API_BASE}${item.image_url.startsWith("/") ? item.image_url : "/" + item.image_url}`
                     : "/placeholder.jpg"
                 }
                 category={item.category}

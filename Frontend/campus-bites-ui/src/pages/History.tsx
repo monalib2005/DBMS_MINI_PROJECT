@@ -13,6 +13,8 @@ interface HistoryOrder {
   completed_at: string | null;
 }
 
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 const History = () => {
   const [orders, setOrders] = useState<HistoryOrder[]>([]);
   const [loading, setLoading] = useState(true);
@@ -27,7 +29,7 @@ const History = () => {
           return;
         }
 
-        const res = await fetch(`http://localhost:5000/api/orders/user/${user.id}`);
+        const res = await fetch(`${API_BASE}/api/orders/user/${user.id}`);
         const data = await res.json();
 
         // Filter only completed orders and map to HistoryOrder format

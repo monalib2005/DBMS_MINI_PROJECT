@@ -29,7 +29,7 @@ interface Order {
   status: "Pending" | "Preparing" | "Ready" | "Completed";
 }
 
-const API_URL = "http://localhost:5000/api/orders"; // backend route base
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000"; // backend route base
 
 const OrderProgress = () => {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -43,7 +43,7 @@ const OrderProgress = () => {
   const fetchOrders = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${API_URL}/verify-order`);
+      const res = await axios.get(`${API_BASE}/api/orders/verify-order`);
 
       const mapped = res.data
         .map((o: any) => ({
@@ -68,7 +68,7 @@ const OrderProgress = () => {
     newStatus: Order["status"]
   ) => {
     try {
-      const res = await axios.patch(`${API_URL}/${order_uuid}`, {
+      const res = await axios.patch(`${API_BASE}/api/orders/${order_uuid}`, {
         status: newStatus,
       });
 

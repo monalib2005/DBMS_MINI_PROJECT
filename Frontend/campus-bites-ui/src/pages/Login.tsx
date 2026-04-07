@@ -9,7 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import heroIllustration from "@/assets/hero-illustration.png";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000/api"; 
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000"; 
 
 
 const Login = () => {
@@ -28,7 +28,7 @@ const Login = () => {
     const password = form.get("password") as string;
 
     try {
-      const res = await axios.post(`${API_BASE}/users/login`, { email, password });
+      const res = await axios.post(`${API_BASE}/api/users/login`, { email, password });
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
       navigate("/home");
@@ -52,7 +52,7 @@ const Login = () => {
     const password = form.get("reg-password") as string;
 
     try {
-      const res = await axios.post(`${API_BASE}/users/register`, { name, email, password });
+      const res = await axios.post(`${API_BASE}/api/users/register`, { name, email, password });
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
       navigate("/home");

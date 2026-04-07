@@ -9,7 +9,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ShieldCheck } from "lucide-react";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:500/api";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ const AdminLogin = () => {
     const password = form.get("password") as string;
 
     try {
-      const res = await axios.post(`${API_BASE}/admin/login`, { username, password });
+      const res = await axios.post(`${API_BASE}/api/admin/login`, { username, password });
       localStorage.setItem("adminToken", res.data.token);
       localStorage.setItem("admin", JSON.stringify(res.data.admin));
       navigate("/admin/dashboard");
@@ -51,7 +51,7 @@ const AdminLogin = () => {
     const password = form.get("password") as string;
 
     try {
-      const res = await axios.post(`${API_BASE}/admin/register`, { name, username, password });
+      const res = await axios.post(`${API_BASE}/api/admin/register`, { name, username, password });
       localStorage.setItem("adminToken", res.data.token);
       localStorage.setItem("admin", JSON.stringify(res.data.admin));
       navigate("/admin/dashboard");

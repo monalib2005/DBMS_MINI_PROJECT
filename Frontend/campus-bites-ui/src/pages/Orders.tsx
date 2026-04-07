@@ -26,6 +26,8 @@ interface Order {
   items: OrderItem[];
 }
 
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 const Orders = () => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
@@ -52,7 +54,7 @@ const Orders = () => {
 
     const fetchOrders = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/orders/user/${userId}`);
+        const res = await fetch(`${API_BASE}/api/orders/user/${userId}`);
         const data = await res.json();
 
         if (!res.ok) throw new Error(data.error || "Failed to fetch orders");

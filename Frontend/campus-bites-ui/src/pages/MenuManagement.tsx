@@ -21,7 +21,7 @@ interface MenuItem {
   availability: boolean;
 }
 
-const API_URL = "http://localhost:5000/api/menu"; // backend base URL
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";// backend base URL
 
 const MenuManagement = () => {
   const [menu, setMenu] = useState<MenuItem[]>([]);
@@ -43,7 +43,7 @@ const MenuManagement = () => {
   const fetchMenu = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(API_URL);
+      const res = await axios.get(`${API_BASE}/api/menu`);
       setMenu(res.data);
     } catch (err) {
       console.error("❌ Error fetching menu:", err);
@@ -75,7 +75,7 @@ const MenuManagement = () => {
       formData.append("availability", newItem.available ? "true" : "false");
       if (newItem.image) formData.append("image", newItem.image);
 
-      const res = await axios.post(API_URL, formData, {
+      const res = await axios.post(`${API_BASE}/api/menu`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
@@ -99,7 +99,7 @@ const MenuManagement = () => {
   const handleDelete = async (id: number) => {
     if (!window.confirm("Delete this item?")) return;
     try {
-      await axios.delete(`${API_URL}/${id}`);
+      await axios.delete(`${API_BASE}/api/menu/${id}`);
       setMenu((prev) => prev.filter((item) => item.item_id !== id));
     } catch (err) {
       console.error("❌ Error deleting item:", err);
@@ -110,7 +110,7 @@ const MenuManagement = () => {
   // ✅ Update only menu availability
   const handleAvailabilityChange = async (id: number, available: boolean) => {
     try {
-      const res = await axios.patch(`${API_URL}/${id}/available`, {
+      const res = await axios.patch(`${API_BASE}/api/menu/${id}/available`, {
         availability: available,
       });
 
@@ -224,7 +224,7 @@ const MenuManagement = () => {
                         <img
                           src={
                             item.image_url
-                              ? `http://localhost:5000${item.image_url}`
+                              ? `${API_BASE}${item.image_url}`
                               : "/placeholder.jpg"
                           }
                           alt={item.name}
