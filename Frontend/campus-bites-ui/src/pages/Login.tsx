@@ -52,7 +52,7 @@ const Login = () => {
     const password = form.get("reg-password") as string;
 
     try {
-      const res = await axios.post(`${API_BASE}/api/users/register`, { name, email, password });
+      const res = await axios.post(`mern-backend-fdavadhecebafpbb.centralindia-01.azurewebsites.net/api/users/register`, { name, email, password });
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
       navigate("/home");
